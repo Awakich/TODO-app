@@ -30,16 +30,16 @@ function submitHandler(element){
     const couple = document.createElement('div')
 
     btns_block.classList.add('btns-block')
-    edit.classList.add('btn_edit')
-    deleted.classList.add('btn_deleted')
+    edit.classList.add('btn_edit', 'btn')
+    deleted.classList.add('btn_deleted', 'btn')
     input_btns.classList.add('btns-block__inner')
     input_btns.type = 'text'
     input_btns.setAttribute('readonly', 'readonly')
     input_btns.value = input.value
-    couple.classList.add('couple-blocks')
+    couple.classList.add('form')
 
-    edit.textContent = 'Edit'
-    deleted.textContent = 'Delete'
+    edit.innerHTML = 'Edit'
+    deleted.innerHTML = 'Delete'
 
     btns_block.appendChild(edit)
     btns_block.appendChild(deleted)
@@ -49,4 +49,21 @@ function submitHandler(element){
     couple.appendChild(task__inner)
     couple.appendChild(btns_block)
     task.appendChild(couple)
+
+    input.value = ''
+
+    edit.addEventListener('click', () => {
+        if (edit.innerText.toLocaleLowerCase() === 'edit'){
+            input_btns.removeAttribute('readonly')
+            input_btns.focus()
+            edit.innerText = 'Save'
+        }else{
+           edit.setAttribute('readonly', 'readonly')
+           edit.innerText = 'Edit'
+        }
+    })
+
+    deleted.addEventListener('click', () => {
+        task.removeChild(couple)
+    })
 }
